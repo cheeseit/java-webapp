@@ -1,11 +1,16 @@
 package nl.harmster.controller;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,7 +23,7 @@ public class DataController {
  @Autowired
  DataService dataService;
 
- @RequestMapping("form")
+@RequestMapping("form")
  public ModelAndView getForm(@ModelAttribute Employee employee) {
   return new ModelAndView("form");
  }
@@ -54,4 +59,16 @@ public class DataController {
   return new ModelAndView("redirect:list");
  }
 
+ @RequestMapping(value= {"/" ,"home"}, method = RequestMethod.GET)
+ public String home(Locale locale, Model model){
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		
+		String formattedDate = dateFormat.format(date);
+		
+		model.addAttribute("serverTime", formattedDate );
+		
+		return "home";
+ }
+ 
 }

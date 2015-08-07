@@ -2,6 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
  xmlns:util="http://www.springframework.org/schema/util" xmlns:mvc="http://www.springframework.org/schema/mvc"
+ xmlns:ws="http://jax-ws.dev.java.net/spring/core" xmlns:wss="http://jax-ws.dev.java.net/spring/servlet"
  xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
@@ -9,7 +10,7 @@
 
  <context:component-scan base-package="nl.harmster.controller" />
  <context:property-placeholder location="classpath:database.properties" />
- <mvc:resources mapping="/webjars/**" location="classpath:/webjars/"/>
+ <mvc:resources mapping="/resources/**" location="/resources/"/>
  <mvc:annotation-driven />
 
  <bean id="dataSource" 
@@ -60,8 +61,29 @@
   </property>
  </bean>
 
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/tiles/tiles-definitions.xml</value>
+			</list>
+		</property>
+	</bean> 
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+	</bean>
+
+
+    <bean id="webServiceClient" class="WebServiceClient">
+        <property name="defaultUri" value="http://localhost:8080/WebService"/>
+    </bean>
+
 
  <bean id="dataDaoImpl" class="nl.harmster.dao.DataDaoImpl" />
- <bean id="dataServiceImpl" class="nl.harmster.services.DataServiceImpl" />
+ <bean id="dataServiceImpl" class="nl.harmster.services.DataServiceImpl" /> 
+
+
 
 </beans>
