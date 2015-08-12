@@ -89,6 +89,17 @@
     <version>${tiles.version}</version>
 </dependency>
 
+  <dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-web</artifactId>
+    <version>4.0.2.RELEASE</version>
+  </dependency>
+  <dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-config</artifactId>
+    <version>4.0.2.RELEASE</version>
+  </dependency>
+
 
 	</dependencies>
 
