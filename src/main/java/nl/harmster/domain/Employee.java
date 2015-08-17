@@ -1,9 +1,11 @@
 package nl.harmster.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
@@ -23,7 +25,7 @@ public class Employee {
  private String email;
  private String phone;
 
- @OneToOne
+ @ManyToOne(cascade = {CascadeType.ALL})
  @PrimaryKeyJoinColumn
  private UserAccount userAccount;
  
@@ -68,4 +70,13 @@ public class Employee {
   this.phone = phone;
  }
 
+public UserAccount getUserAccount() {
+	return userAccount;
+}
+
+public void setUserAccount(UserAccount userAccount) {
+	this.userAccount = userAccount;
+}
+
+ 
 }

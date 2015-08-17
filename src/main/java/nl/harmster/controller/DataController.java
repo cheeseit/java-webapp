@@ -1,7 +1,9 @@
 package nl.harmster.controller;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import nl.harmster.domain.Employee;
+import nl.harmster.domain.UserAccount;
+import nl.harmster.services.AccountDataService;
 import nl.harmster.services.DataService;
 
 @Controller
@@ -24,6 +28,9 @@ public class DataController {
 	final static Logger logger = Logger.getLogger(DataController.class);
 	@Autowired
 	DataService dataService;
+	
+	@Autowired
+	AccountDataService accountDataService;
 
 	@RequestMapping("form")
 	public ModelAndView getForm(@ModelAttribute Employee employee) {
@@ -64,9 +71,16 @@ public class DataController {
 	public ModelAndView populateDatabase(@RequestParam(value = "button1", required = false) String button) {
 		logger.debug("I am in.!!");
 		if (button != null && !button.isEmpty()) {
+			List<UserAccount> ual;
+			
 			nl.harmster.utility.database.DatabasePopulator dbp = new nl.harmster.utility.database.DatabasePopulator();
 			Employee emp1 = dbp.populateDatabase();
-			dataService.insertRow(emp1);	
+			dataService.insertRow(emp1);
+			ual = dbp.populateUserAccounts();
+			for( Iterator<UserAccount> i = ual.iterator(); i.hasNext();){
+				UserAccount item = i.next();
+				accountDataService.createUserAccount(item);
+			}
 			logger.info("done inserting.");
 		}
 		return new ModelAndView("populatedb");

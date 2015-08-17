@@ -75,5 +75,6 @@
  <bean id="dataDaoImpl" class="nl.harmster.dao.DataDaoImpl" />
  <bean id="dataServiceImpl" class="nl.harmster.services.DataServiceImpl" />
  <bean id="accountDataDaoImpl" class="nl.harmster.dao.AccountDataDaoImpl" />
+ <bean id="accountDataService" class="nl.harmster.services.AccountDataServiceImpl" />
 
 </beans>

@@ -1,7 +1,11 @@
 package nl.harmster.services;
 
-import nl.harmster.Account;
+import nl.harmster.domain.UserAccount;
 
 public interface AccountDataService {
-	public Account getAccountById(int id);
+	
+	public UserAccount getUserAccountById(int id);
+	
+	public void createUserAccount(UserAccount ua);
+	
 }

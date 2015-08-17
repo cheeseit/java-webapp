@@ -22,14 +22,10 @@ public class DataDaoImpl implements DataDao {
 
 	@Transactional
 	public int insertRow(Employee employee) {
-		logger.debug("Inserting a new employee");
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		logger.debug("Before inserting");
 		session.saveOrUpdate(employee);
-		logger.debug("Inserted");
 		tx.commit();
-		logger.debug("End transaction");
 		Serializable id = session.getIdentifier(employee);
 		session.close();
 		return (Integer) id;

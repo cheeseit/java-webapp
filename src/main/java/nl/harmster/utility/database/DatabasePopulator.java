@@ -2,6 +2,7 @@ package nl.harmster.utility.database;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -44,10 +45,21 @@ public class DatabasePopulator {
 		list.add(Permissions.ADMIN);
 		list.add(Permissions.USER);
 		
-		ua.setEmployee(createEmployee(rs.nextString(),rs.nextString(),rs.nextString(),rs.nextString()));
+		List<Employee> eml = new ArrayList<Employee>();
+		eml.add(createEmployee(rs.nextString(),rs.nextString(),rs.nextString(),rs.nextString()));
+		eml.add(createEmployee(rs.nextString(),rs.nextString(),rs.nextString(),rs.nextString()));
+		
+		
 		ua.setPermissions(list);
 		ua.setUsername(rs.nextString());
 		ua.setPassword(rs.nextString());
+		
+		for (Iterator<Employee> i = eml.iterator(); i.hasNext(); ){
+			Employee e = i.next();
+			e.setUserAccount(ua);
+		}
+		// Needs to be set after the employees are linked to the UserAccount
+		ua.setEmployee(eml);
 		
 		return ua;
 	}
