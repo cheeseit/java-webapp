@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 public class Employee {
@@ -21,6 +23,11 @@ public class Employee {
  private String email;
  private String phone;
 
+ @OneToOne
+ @PrimaryKeyJoinColumn
+ private UserAccount userAccount;
+ 
+ 
  public int getId() {
   return id;
  }

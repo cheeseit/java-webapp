@@ -31,13 +31,15 @@
   <property name="dataSource" ref="dataSource" />
   <property name="annotatedClasses">  
             <list>  
-                <value>nl.harmster.domain.Employee</value>  
+                <value>nl.harmster.domain.Employee</value>
+                <value>nl.harmster.domain.UserAccount</value>
             </list>  
         </property> 
   <property name="hibernateProperties">
    <props>
     <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
     <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+    <prop key="hibernate.hbm2ddl.auto">create</prop>
    </props>
   </property>
  </bean>
@@ -72,5 +74,6 @@
 
  <bean id="dataDaoImpl" class="nl.harmster.dao.DataDaoImpl" />
  <bean id="dataServiceImpl" class="nl.harmster.services.DataServiceImpl" />
+ <bean id="accountDataDaoImpl" class="nl.harmster.dao.AccountDataDaoImpl" />
 
 </beans>

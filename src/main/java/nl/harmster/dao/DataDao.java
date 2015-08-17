@@ -12,7 +12,7 @@ public interface DataDao {
  public Employee getRowById(int id);
 
  public int updateRow(Employee employee);
-
+ 
  public int deleteRow(int id);
 
 }
